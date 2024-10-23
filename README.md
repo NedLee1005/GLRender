@@ -5,9 +5,14 @@ Use OpenGL Render YUYV Buffer.
 ##  編譯程式
 進入I.MX8 6.6.3 編譯環境
 ```bash session
-$cd GLRender && make -j
+$cd GLRender && mkdir build
 ```
-
+```bash session
+$cd build
+```
+```bash session
+$cmake .. && make -j 
+```
 ##  使用方法
 將編譯出來的 gl_render 放進隨身碟內，並用I.MX8執行程式
 
