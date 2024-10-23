@@ -3,15 +3,15 @@
 int screenWidth = 1920;
 int screenHeight = 1080;
 
-glRender::glRender(/* args */){}
-glRender::~glRender(){
+GLRender::GLRender(/* args */){}
+GLRender::~GLRender(){
     glDeleteBuffers(2, &VBO[0]);
     glDeleteVertexArrays(1, &VAO);
     glDeleteTextures(1, &textUnit_YUY2);
     glDeleteTextures(1, &textUnit_RGB);
 }
-void glRender::glAttribInit(void){
-	float v_coord[] = {
+void GLRender::AttribInit(void){
+	float v_coord[3 * 6] = {
 		+1.0000, +1.0000, +0.0000,
 		-1.0000, +1.0000, +0.0000,
 		-1.0000, -1.0000, +0.0000,
@@ -21,7 +21,7 @@ void glRender::glAttribInit(void){
 		
 	};
 
-	float t_coord[] = {
+	float t_coord[2 * 6] = {
 		1.0000, 0.0000,
 		0.0000, 0.0000,
 		0.0000, 1.0000,
@@ -71,14 +71,13 @@ void glRender::glAttribInit(void){
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
-void glRender::glInit(void){
+void GLRender::Init(void){
     programe.createPrograme(IMG_NV12_VERTEX_SHADER, IMG_YUY2_FRAG_SHADER);
-    glAttribInit();
+    AttribInit();
 }
 
-void glRender::imageRender(int width, int height, const unsigned char * const buf){
+void GLRender::ImageRender(int width, int height, const unsigned char * buf){
 	int frame_size = width * height;
-
 	/* 設定打畫面的大小. */
 	glViewport(0, 0, screenWidth, screenHeight);
 	glClear(GL_COLOR_BUFFER_BIT);

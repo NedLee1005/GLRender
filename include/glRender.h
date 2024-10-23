@@ -18,7 +18,7 @@ extern "C"{
 extern int screenWidth;
 extern int screenHeight;
 
-class glRender{
+class GLRender{
 private:
     typedef enum class _glTextUnit : GLenum{
         RGB = 0,
@@ -31,13 +31,13 @@ private:
 
     glProgramObjectFromC programe;
 
-    void glAttribInit(void);
+    void AttribInit(void);
 
 public:
-    glRender(/* args */);
-    ~glRender();
-    void glInit(void);
-    void imageRender(int width, int height, const unsigned char * const buf);
+    GLRender(/* args */);
+    ~GLRender();
+    void Init(void);
+    void ImageRender(int width, int height, const unsigned char * buf);
 
 };
 

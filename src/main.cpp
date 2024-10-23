@@ -1,20 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <memory.h>
 #include "glRender.h"
 #include "glVDK.h"
 
-vdkEGL egl;
-glRender showCamera; 
+// vdkEGL  egl_s;
+VDKEGL  egl;
+GLRender showCamera; 
 
 int main(int argc, char* args[]){
-    init_egl(&egl);
-    showCamera.glInit();
-    unsigned char * buf = (unsigned char*)calloc(1920 * 720 * 2, sizeof(unsigned char));
+    FILE * fp;
+    unsigned char * buf = (unsigned char*)malloc(1280 * 720 * 2 * sizeof(unsigned char));
+    fp = fopen("output3_2.yuv", "rb");
+    fread(buf, sizeof(unsigned char), 1280 * 720 * 2, fp);
+    egl.InitEGL();
+    showCamera.Init();
     while (true){
-        showCamera.imageRender(1280, 720, buf);
-        swap_egl(&egl);
+        showCamera.ImageRender(1280, 720, buf);
+        egl.SwapEGL();
     }
     free(buf);
-    finish_egl(&egl);
+    fclose(fp);
     return 0;
 }
